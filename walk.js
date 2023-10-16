@@ -1,3 +1,6 @@
+
+
+
 // No need to change the following code
 // The area object defines the div in which the balls will be created
 const area = {
@@ -35,14 +38,23 @@ const area = {
   // TODO: implement the create function
   function create(color, dx, dy) {
     const newBall = Object.create(this);
-  
+    
     // TODO: Set newBall properties: dx, dy, width, height
-  
+    newBall.dx=dx;
+    newBall.dy=dy;
+    newBall.width=parseInt("40",10);
+    newBall.height=parseInt("40",10);
+    newBall.element=document.createElement('div');
     // TODO: set the newBall.element property and initialize it to a Html element "div"
     // TODO: set the backgroundColor, width and height style properties for newBall.element
+    newBall.element.style.backgroundColor=color;
+    newBall.element.style.width=newBall.width+'px';
+    newBall.element.style.height=newBall.height+'px';
     // This line set the CSS class for newBall.element. No need to change this line
-    newBall.element.className += ' ball';
-  
+    newBall.element.className+='ball';
+
+    area.element.appendChild(newBall.element);
+   
     // TODO: set the width and height of newBall based on newBall.element
     // Hint: use the Javascript parseInt() function to convert a string value to integer
     // TODO: use the Javascript appendChild() function to add newBall.element to the area element
@@ -51,16 +63,17 @@ const area = {
   
   // TODO: implement the update function
   function update(ball, x, y) {
+
     // TODO: use the moveTo() function to move the ball
-    
-    // TODO: use the Javascript setTimeout() method to call changeDirectionIfNecessary() 
-    // and update() every 16ms
+    moveTo(ball,x,y);
+    // TODO: use the Javascript setTimeout() method to call changeDirectionIfNecessary() and update() every 16ms
   
-  //setTimeout(changeDirectionIfNecessary(ball, x, y),16);
-  //setTimeout(update(ball, x + ball.dx, y + ball.dy),16);
- 
+    setTimeout(changeDirectionIfNecessary(ball, x, y),16);
+    setTimeout(()=>update(ball, x + ball.dx, y + ball.dy),16);
+  }
+  // Uncomment these lines for step 1 of the activity
   // This is expected to create 3 balls within the area div
-  
+
    initialize();
    const ball1 = create('blue', 4, 3);
    const ball2 = create('red', 1, 5);
@@ -69,10 +82,9 @@ const area = {
    moveTo(ball2, 10, 10);
    moveTo(ball3, 20, 20);
   
+  // Uncomment these lines for step 2 of the activity
   // This is expected to make the 3 balls move around the area div
   
    update(ball1, 70, 0);
    update(ball2, 20, 200);
    update(ball3, 300, 330);
-  
-  }  
